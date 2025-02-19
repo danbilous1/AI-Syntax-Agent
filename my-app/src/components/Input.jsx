@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Input({ label, placeholder, id, onChange, }) {
+function Input({ label, placeholder, id, onChange, onDelete, isPlanInput }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -17,6 +17,14 @@ function Input({ label, placeholder, id, onChange, }) {
             placeholder={placeholder}
             onChange={(e) => onChange(id, e.target.value)}
           />
+          {isPlanInput && isHovered && (
+            <button
+              className="btn btn-danger btn-sm delete-btn"
+              onClick={() => onDelete(id)} // Trigger delete on button click
+            >
+              X
+            </button>
+          )}
         </div>
       </div>
     </div>
