@@ -65,7 +65,72 @@ input {
   width: 100%; /* Makes input take available space */
 }
 
-/* Optional: Styling for non-flex layout */
-div {
-  margin-bottom: 15px; /* Space between input groups */
+/* Style for the 'add-more' button */
+.add-more {
+  color: black; /* White text */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  margin-top: 10px; /* Space above the button */
 }
+
+.add-more:hover {
+  background-color: #cccccc; /* Darker blue when hovered */
+}
+
+.add-more:focus {
+  outline: none; /* Removes the default focus outline */
+}
+
+.add-more:active {
+  background-color: #cccccc; /* Even darker blue when clicked */
+}
+
+.input-container {
+  margin-bottom: 10px;
+}
+
+.input-label-wrapper {
+  display: flex;
+  align-items: center; /* Vertically center the label and input */
+  gap: 10px; /* Add consistent spacing between the number and input */
+  width: 100%; /* Ensure it takes full width */
+}
+
+.input-number {
+  font-weight: bold;
+  min-width: 30px; /* Ensure the number doesn't shrink */
+  text-align: right; /* Right-align the number for consistency */
+  margin: 0; /* Remove any default margin */
+  padding: 0; /* Remove any default padding */
+}
+
+.input-wrapper {
+  flex-grow: 1; /* Allow the input to take remaining space */
+  position: relative; /* For positioning the delete button */
+}
+
+.input-wrapper input {
+  width: 100%; /* Ensure input takes full width */
+  padding: 8px; /* Consistent padding */
+  font-size: 14px; /* Consistent font size */
+  border: 1px solid #ccc; /* Consistent border */
+  border-radius: 4px; /* Consistent border radius */
+  box-sizing: border-box; /* Prevent padding from affecting width */
+}
+
+.delete-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust the right positioning to keep it inside the input */
+  transform: translateY(-50%); /* Center it vertically */
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.input-container:hover .delete-btn {
+  opacity: 1; /* Show delete button on hover */
+}
+
