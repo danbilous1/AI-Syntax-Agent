@@ -15,7 +15,14 @@ function App() {
         <Input label="2." id="2" flex="false" />
         <Input label="3." id="3" flex="false" />
       </div>
-      <button className="add-more">+</button>
+      <div className="d-flex justify-content-between mt-2">
+        <button className="btn btn-light" onClick={addInput}>
+          +
+        </button>
+        <button className="btn btn-primary" onClick={() => {}}>
+          Solve with AI
+        </button>
+      </div>
     </div>
   );
 }
