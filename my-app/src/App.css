@@ -134,3 +134,11 @@ input {
   opacity: 1; /* Show delete button on hover */
 }
 
+.input-wrapper input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.btn-danger {
+  padding: 0.2rem 0.5rem;
+}
