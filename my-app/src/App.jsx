@@ -26,6 +26,15 @@ function App() {
         return `${num}th Step`;
     }
   };
+
+  // Function to handle input changes
+  const handleChange = (id, newValue) => {
+    setInputs(
+      inputs.map((input) =>
+        input.id === id ? { ...input, value: newValue } : input
+      )
+    );
+  };
   
   
   return (
