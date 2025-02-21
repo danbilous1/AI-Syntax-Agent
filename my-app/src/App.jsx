@@ -5,6 +5,29 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
+  const [inputs, setInputs] = useState([
+    { id: 1, label: "1.", value: "" },
+    { id: 2, label: "2.", value: "" },
+    { id: 3, label: "3.", value: "" },
+  ]);
+
+  // Function to determine the correct suffix
+  const getOrdinalPlaceholder = (num) => {
+    if (num % 100 >= 11 && num % 100 <= 13) return `${num}th Step`;
+    const lastDigit = num % 10;
+    switch (lastDigit) {
+      case 1:
+        return `${num}st Step`;
+      case 2:
+        return `${num}nd Step`;
+      case 3:
+        return `${num}rd Step`;
+      default:
+        return `${num}th Step`;
+    }
+  };
+  
+  
   return (
     <div>
       <Input label="Your idea" id="idea" placeholder="Your coding Idea" />
