@@ -41,7 +41,6 @@
   color: #888;
 }
 
-/* Flex styling for the container */
 .flex {
   display: flex;
   flex-direction: row;
@@ -49,14 +48,12 @@
   gap: 10px;
 }
 
-/* Label styling */
 label {
   font-size: 14px;
   margin: 0;
   padding: 0;
 }
 
-/* Input styling */
 input {
   padding: 8px;
   font-size: 14px;
@@ -65,7 +62,6 @@ input {
   width: 100%;
 }
 
-/* Style for the 'add-more' button */
 .add-more {
   color: black;
   border: none;
@@ -89,34 +85,34 @@ input {
 }
 
 .input-container {
-  margin-bottom: 1rem; /* Consistent spacing between inputs */
+  margin-bottom: 1rem;
 }
 
 .input-label {
-  display: block; /* Ensures label is above input */
-  margin-bottom: 0.25rem; /* Small gap between label and input */
-  font-weight: 500; /* Slightly bold for visibility */
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
 }
 
 .input-wrapper {
   position: relative;
-  display: flex; /* Flex for plan inputs */
-  align-items: center; /* Vertically center number and input */
-  gap: 0.5rem; /* Space between number and input */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .input-number {
   font-weight: bold;
-  white-space: nowrap; /* Prevent number from wrapping */
-  min-width: 20px; /* Ensure number has some width */
+  white-space: nowrap;
+  min-width: 20px;
 }
 
 .input-wrapper input {
-  flex-grow: 1; /* Input takes remaining space */
-  padding: 0.375rem 0.75rem; /* Bootstrap-like padding */
-  border: 1px solid #ced4da; /* Bootstrap-like border */
-  border-radius: 0.25rem; /* Bootstrap-like rounding */
-  box-sizing: border-box; /* Include padding in width */
+  flex-grow: 1;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
 }
 
 .delete-btn {
@@ -129,7 +125,7 @@ input {
 }
 
 .input-container:hover .delete-btn {
-  opacity: 1; /* Show delete button on hover */
+  opacity: 1;
 }
 
 .input-wrapper input:focus {
