@@ -1,16 +1,21 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Input from "./components/Input";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { darcula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "./App.css";
 
 function App() {
+  const GEMINI_API_KEY = "your_gemini_api_key_here"; // Replace with your actual Gemini API key
+
   const [inputs, setInputs] = useState([
     { id: 1, label: "1.", value: "" },
     { id: 2, label: "2.", value: "" },
     { id: 3, label: "3.", value: "" },
   ]);
+  const [output, setOutput] = useState("");
+  const [language, setLanguage] = useState("javascript");
 
-  // Function to determine the correct place
   const getOrdinalPlaceholder = (num) => {
     if (num % 100 >= 11 && num % 100 <= 13) return `${num}th Step`;
     const lastDigit = num % 10;
@@ -26,14 +31,12 @@ function App() {
     }
   };
 
-  // Function to add a new input
   const addInput = () => {
     const newId =
       inputs.length > 0 ? Math.max(...inputs.map((i) => i.id)) + 1 : 1;
     setInputs([...inputs, { id: newId, label: `${newId}.`, value: "" }]);
   };
 
-  // Function to delete an inputs
   const handleDeleteInput = (id) => {
     setInputs(
       (prevInputs) =>
@@ -43,11 +46,10 @@ function App() {
             ...input,
             id: index + 1,
             label: `${index + 1}.`,
-          })) // Renumbering
+          }))
     );
   };
 
-  // Function to handle input changes
   const handleChange = (id, newValue) => {
     setInputs(
       inputs.map((input) =>
@@ -56,8 +58,50 @@ function App() {
     );
   };
 
+  const handleLanguageChange = (id, newValue) => {
+    setLanguage(newValue);
+  };
+
+  const generateContent = async () => {
+    const idea = document.getElementById("idea").value;
+    const code = document.getElementById("code").value;
+    const planSteps = inputs
+      .map((input) => input.value)
+      .filter((value) => value.trim() !== "");
+
+    const prompt = `I have a coding idea: ${idea}. Here is some optional code: ${code}. My solving plan is: ${planSteps.join(
+      ", "
+    )}. Please provide a code solution in ${language} with short explanations in comments.`;
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [{ text: prompt }],
+              },
+            ],
+          }),
+        }
+      );
+
+      const data = await response.json();
+      const generatedText = data.candidates[0].content.parts[0].text;
+      setOutput(generatedText);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setOutput("An error occurred while generating the solution.");
+    }
+  };
+
   return (
-    <div className="container mt-4 g-4">
+    <div className="container mt-4 g-4" style={{ maxWidth: "800px" }}>
       <h4 className="mb-3">AI Syntax Agent</h4>
       <div className="row g-3">
         <div>
@@ -72,6 +116,13 @@ function App() {
             id="code"
             placeholder="Your code (Optional)"
             onChange={handleChange}
+          />
+          <Input
+            label="Programming Language"
+            id="language"
+            placeholder="e.g., JavaScript, Python"
+            value={language}
+            onChange={handleLanguageChange}
           />
         </div>
 
@@ -98,10 +149,24 @@ function App() {
         <button className="btn btn-light" onClick={addInput}>
           +
         </button>
-        <button className="btn btn-primary" onClick={() => {}}>
+        <button className="btn btn-primary" onClick={generateContent}>
           Solve with AI
         </button>
       </div>
+
+      {output && (
+        <div className="mt-4">
+          <h5>Generated Solution:</h5>
+          <SyntaxHighlighter
+            language={language.toLowerCase()}
+            style={darcula}
+            wrapLines={true}
+            customStyle={{ maxWidth: "100%", overflowX: "auto" }}
+          >
+            {output}
+          </SyntaxHighlighter>
+        </div>
+      )}
     </div>
   );
 }
